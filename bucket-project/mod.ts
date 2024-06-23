@@ -1,6 +1,6 @@
-import { ensureDir } from 'https://deno.land/std@0.208.0/fs/mod.ts';
-import { resolve } from 'https://deno.land/std@0.208.0/path/mod.ts';
-import { Image } from 'https://deno.land/x/imagescript@1.2.17/mod.ts';
+import { Image } from 'imagescript/mod.ts';
+import { ensureDir } from 'std/fs/mod.ts';
+import { resolve } from 'std/path/mod.ts';
 
 import { config } from '../src/config.ts';
 

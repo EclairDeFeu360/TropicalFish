@@ -2,5 +2,9 @@
     "tasks": {
         "start": "deno run --allow-write=. --allow-read=. --allow-run ./src/mod.ts",
         "bucket-start": "cd bucket-project && deno task start"
+    },
+    "imports": {
+        "std/": "https://deno.land/std@0.224.0/",
+        "zip/": "https://deno.land/x/zip@v1.2.5/"
     }
 }

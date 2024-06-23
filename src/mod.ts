@@ -1,5 +1,5 @@
-import { copy } from 'https://deno.land/std@0.208.0/fs/mod.ts';
-import { compress } from 'https://deno.land/x/zip@v1.2.5/mod.ts';
+import { copy } from 'std/fs/mod.ts';
+import { compress } from 'zip/mod.ts';
 
 import generatesFiles from './advancement/mod.ts';
 import { config } from './config.ts';

@@ -1,17 +1,8 @@
+import { config } from '../config.ts';
 import { getAdvancementsPath, getAdvancementsPathBodyColor, getAdvancementsPathType, getDatapackName, writeFile } from '../utils/pack.ts';
 import { calculateModelData, colors, colorsMapping, getVariantsWithTypeColor, types } from '../utils/variant.ts';
-import {
-    getActiveFileContent,
-    getBodyFileContent,
-    getGlobaleFileContent,
-    getGlobalTypeFileContent,
-    getMainFileContent,
-    getPatternFileContent,
-} from './advancementFactory.ts';
+import { getActiveFileContent, getBodyFileContent, getGlobaleFileContent, getGlobalTypeFileContent, getMainFileContent, getPatternFileContent } from './advancementFactory.ts';
 import { Criteria, Variant } from './IJson.ts';
-
-const DEFAULT_PRIMARY_COLOR = 13;
-const DEFAULT_SECONDARY_COLOR = 3;
 
 export default async function generatesFiles() {
     const promises: Promise<void>[] = [];
@@ -19,6 +10,8 @@ export default async function generatesFiles() {
     const allTypeVariants: {
         [type: string]: { key: string; value: Variant }[];
     } = {};
+
+    promises.push(createDetectFile());
 
     types.forEach((type, typeIndex) => {
         const typeVariants: {
@@ -84,7 +77,7 @@ async function createMainFile(
 ) {
     const path = `${getAdvancementsPathType(type)}/main.json`;
     const content = getMainFileContent({
-        modelData: calculateModelData(types.indexOf(type), DEFAULT_PRIMARY_COLOR, DEFAULT_SECONDARY_COLOR),
+        modelData: calculateModelData(types.indexOf(type), config.defaultPrimaryColorIndex, config.defaultSecondaryColorIndex),
         type: type,
     });
 
@@ -145,7 +138,7 @@ async function createGlobalFiles(allTypesVariants: { [type: string]: { key: stri
     for (const type of Object.keys(allTypesVariants)) {
         const typePath = `${getAdvancementsPath()}/global_${type}.json`;
         const typeContent = getGlobalTypeFileContent({
-            modelData: calculateModelData(types.indexOf(type), DEFAULT_PRIMARY_COLOR, DEFAULT_SECONDARY_COLOR),
+            modelData: calculateModelData(types.indexOf(type), config.defaultPrimaryColorIndex, config.defaultSecondaryColorIndex),
             parent: lastParent,
             type: type,
         });
@@ -168,4 +161,24 @@ async function createGlobalFiles(allTypesVariants: { [type: string]: { key: stri
     );
     promises.push(writeFile(path, content));
     await Promise.all(promises);
+}
+
+async function createDetectFile() {
+    await writeFile(`${getAdvancementsPath()}/detect.json`, {
+        criteria: {
+            requirement: {
+                trigger: 'minecraft:inventory_changed',
+                conditions: {
+                    items: [
+                        {
+                            items: 'minecraft:tropical_fish_bucket',
+                        },
+                    ],
+                },
+            },
+        },
+        rewards: {
+            function: `${getDatapackName()}:convert`,
+        },
+    });
 }

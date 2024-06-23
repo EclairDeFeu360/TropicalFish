@@ -1,19 +1,6 @@
-export const types: string[] = [
-    'betty',
-    'blockfish',
-    'brinely',
-    'clayfish',
-    'dasher',
-    'flopper',
-    'glitter',
-    'kob',
-    'snooper',
-    'spotty',
-    'stripey',
-    'sunstreak',
-];
+export const types: string[] = ['betty', 'blockfish', 'brinely', 'clayfish', 'dasher', 'flopper', 'glitter', 'kob', 'snooper', 'spotty', 'stripey', 'sunstreak'];
 export const typesMapping: Record<string, [number, number]> = {
-    // first least byte / second-least byte : https://minecraft.fandom.com/wiki/Tropical_Fish (Entity data)
+    // first least byte / second-least byte: https://minecraft.wiki/w/Tropical_Fish#Entity_data
     betty: [1, 4],
     blockfish: [1, 3],
     brinely: [0, 4],
@@ -28,8 +15,8 @@ export const typesMapping: Record<string, [number, number]> = {
     sunstreak: [0, 1],
 };
 
-// black : Not found naturally
 export const colors: string[] = [
+    'black',
     'blue',
     'brown',
     'cyan',
@@ -47,6 +34,7 @@ export const colors: string[] = [
     'yellow',
 ];
 export const colorsMapping: Record<string, number> = {
+    black: 15,
     blue: 11,
     brown: 12,
     cyan: 9,
@@ -85,8 +73,7 @@ export function getVariantsWithTypeColor(typeStr: string, colorStr: string): num
     const pattern = type[1];
     const colorBody = colorsMapping[colorStr];
 
-    for (let colorPattern = 0; colorPattern <= 14; colorPattern++) {
-        // 15 = black : Not found naturally
+    for (let colorPattern = 0; colorPattern <= 15; colorPattern++) {
         variantList.push((colorPattern << 24) | (colorBody << 16) | (pattern << 8) | size);
     }
 

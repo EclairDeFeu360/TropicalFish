@@ -1,4 +1,4 @@
-import { ensureDir } from 'https://deno.land/std@0.208.0/fs/mod.ts';
+import { ensureDir } from 'std/fs/mod.ts';
 
 import { config } from '../config.ts';
 import { colors, types } from './variant.ts';
@@ -47,15 +47,15 @@ export function getDatapackName(): string {
 }
 
 export function getMinecraftFunctionPath() {
-    return `${DATAPACK_FOLDER_PATH}/data/minecraft/tags/functions`;
+    return `${DATAPACK_FOLDER_PATH}/data/minecraft/tags/function`;
 }
 
 export function getDatapackFunctionPath() {
-    return `${DATAPACK_FOLDER_PATH}/data/${getDatapackName()}/functions`;
+    return `${DATAPACK_FOLDER_PATH}/data/${getDatapackName()}/function`;
 }
 
 export function getAdvancementsPath() {
-    return `${DATAPACK_FOLDER_PATH}/data/${getDatapackName()}/advancements`;
+    return `${DATAPACK_FOLDER_PATH}/data/${getDatapackName()}/advancement`;
 }
 
 export function getAdvancementsPathType(type: string) {

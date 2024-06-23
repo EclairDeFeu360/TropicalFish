@@ -25,8 +25,8 @@ export interface Display {
 }
 
 export interface Icon {
-    item: string;
-    nbt?: string;
+    id: string;
+    components?: { 'minecraft:custom_model_data': number };
 }
 
 export interface Variant {
