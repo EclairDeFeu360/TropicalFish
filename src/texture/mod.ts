@@ -62,7 +62,7 @@ async function createLinkTexturesModelsFile() {
     types.forEach((type, typeIndex) => {
         colors.forEach((bodyColor, bodyColorIndex) => {
             colors.forEach((patternColor, patternColorIndex) => {
-                const modelData: number = calculateModelData(typeIndex, bodyColorIndex, patternColorIndex);
+                const modelData: JSON = calculateModelData(typeIndex, bodyColorIndex, patternColorIndex);
                 const model = `${config.techName}/${type}/${bodyColor}/${patternColor}`;
 
                 content.overrides.push({

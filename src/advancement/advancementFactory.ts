@@ -69,7 +69,7 @@ export function getGlobaleFileContent() {
         .get();
 }
 
-export function getGlobalTypeFileContent(params: { modelData: number; parent: string; type: string }) {
+export function getGlobalTypeFileContent(params: { modelData: JSON; parent: string; type: string }) {
     return new AdvancementFactory()
         .criteria({})
         .display({
@@ -106,7 +106,7 @@ export function getGlobalTypeFileContent(params: { modelData: number; parent: st
         .get();
 }
 
-export function getMainFileContent(params: { modelData: number; type: string }) {
+export function getMainFileContent(params: { modelData: JSON; type: string }) {
     return new AdvancementFactory()
         .criteria({})
         .display({
@@ -141,7 +141,7 @@ export function getMainFileContent(params: { modelData: number; type: string }) 
         .get();
 }
 
-export function getBodyFileContent(params: { bodyColor: string; modelData: number; type: string; variantsColor: { color: number; key: string }[] }) {
+export function getBodyFileContent(params: { bodyColor: string; modelData: JSON; type: string; variantsColor: { color: number; key: string }[] }) {
     const variants = params.variantsColor.map((variantColor) => {
         return {
             [`variant_${variantColor.color}`]: {
@@ -204,7 +204,7 @@ export function getBodyFileContent(params: { bodyColor: string; modelData: numbe
         .get();
 }
 
-export function getPatternFileContent(params: { bodyColor: string; modelData: number; parent: string; patternColor: string; type: string }) {
+export function getPatternFileContent(params: { bodyColor: string; modelData: JSON; parent: string; patternColor: string; type: string }) {
     return new AdvancementFactory()
         .criteria({})
         .display({

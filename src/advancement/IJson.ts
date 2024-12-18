@@ -26,7 +26,7 @@ export interface Display {
 
 export interface Icon {
     id: string;
-    components?: { 'minecraft:custom_model_data': number };
+    components?: { 'minecraft:custom_model_data': JSON };
 }
 
 export interface Variant {
