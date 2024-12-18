@@ -33,6 +33,7 @@ async function generatePackMeta() {
                 pack: {
                     description: config.i18nName + ' Datapack',
                     pack_format: config.datapackFormat,
+                    supported_formats: [config.datapackFormat,9e9],
                 },
             },
             null,
@@ -46,6 +47,7 @@ async function generatePackMeta() {
                 pack: {
                     description: config.i18nName + ' Resourcepack',
                     pack_format: config.resourcepackFormat,
+                    supported_formats: [config.resourcepackFormat,9e9],
                 },
             },
             null,

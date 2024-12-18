@@ -14,16 +14,7 @@ export async function generateFolders() {
             promises.push(ensureDir(path));
         }
     }
-    promises.push(ensureDir(getMinecraftFunctionPath()), ensureDir(getDatapackFunctionPath()), ensureDir(`${RESOURCEPACK_FOLDER_PATH}/assets/minecraft/models/item/`));
-
-    for (const type of types) {
-        const modelsPathType = `${RESOURCEPACK_FOLDER_PATH}/assets/minecraft/models/${config.techName}/${type}/`;
-
-        for (const colorBody of colors) {
-            const modelPathTypeColorBody = `${modelsPathType}/${colorBody}/`;
-            promises.push(ensureDir(modelPathTypeColorBody));
-        }
-    }
+    promises.push(ensureDir(getMinecraftFunctionPath()), ensureDir(getDatapackFunctionPath()));
 
     await Promise.all(promises);
 }
