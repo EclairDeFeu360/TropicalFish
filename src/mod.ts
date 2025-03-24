@@ -4,7 +4,7 @@ import { compress } from 'zip/mod.ts';
 import generatesFiles from './advancement/mod.ts';
 import { config } from './config.ts';
 import generatesFunctionFiles from './function/mod.ts';
-import initTextures from './texture/mod.ts';
+//import initTextures from './texture/mod.ts';
 import { DATAPACK_FOLDER_PATH, generateFolders, RESOURCEPACK_FOLDER_PATH } from './utils/pack.ts';
 
 async function removeIfExists(path: string) {
@@ -30,11 +30,11 @@ await removeIfExists(RESOURCEPACK_FOLDER_PATH);
 console.log('Generating datapack folder and resourcepack folder...');
 
 await generateFolders();
-await copy('./static/textures', `${RESOURCEPACK_FOLDER_PATH}/assets/minecraft/textures`);
-await copy('./static/lang', `${RESOURCEPACK_FOLDER_PATH}/assets/minecraft/lang`);
-await copy('./static/pack.png', `${DATAPACK_FOLDER_PATH}/pack.png`);
-await copy('./static/pack.png', `${RESOURCEPACK_FOLDER_PATH}/pack.png`);
-await initTextures();
+// await copy('./static/textures', `${RESOURCEPACK_FOLDER_PATH}/assets/minecraft/textures`);
+// await copy('./static/lang', `${RESOURCEPACK_FOLDER_PATH}/assets/minecraft/lang`);
+// await copy('./static/pack.png', `${DATAPACK_FOLDER_PATH}/pack.png`);
+// await copy('./static/pack.png', `${RESOURCEPACK_FOLDER_PATH}/pack.png`);
+// //await initTextures();
 await generatesFiles();
 await generatesFunctionFiles();
 

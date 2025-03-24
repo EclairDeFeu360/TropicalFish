@@ -52,13 +52,27 @@ export const colorsMapping: Record<string, number> = {
     yellow: 4,
 };
 
-export function calculateModelData(typeIndex: number, bodyColorIndex: number, patternColorIndex: number): number {
-    const padNumber = (num: number) => ('' + num).padStart(2, '0');
-    const typeIndexStr = padNumber(typeIndex + 1);
-    const bodyColorIndexStr = padNumber(bodyColorIndex + 1);
-    const patternColorIndexStr = padNumber(patternColorIndex + 1);
+export function calculateModelData(typeIndex: number, bodyColorIndex: number, patternColorIndex: number): JSON {
+    const size:number = typesMapping[types[typeIndex]][0];
+    let sizeLiteral:string;
+    if (size == 0)  sizeLiteral = "small";
+    else  sizeLiteral = "big";
 
-    return Number.parseInt(`1${typeIndexStr}${bodyColorIndexStr}${patternColorIndexStr}`);
+    const pattern:string = types[typeIndex];
+
+    const colorBody:string = colors[bodyColorIndex];
+    const colorPattern:string = colors[patternColorIndex];
+
+    const CMD = {
+        strings:[
+            sizeLiteral,
+            colorBody,
+            pattern,
+            colorPattern
+        ]
+    }
+
+    return JSON.parse(JSON.stringify(CMD));
 }
 
 export function getVariantsWithTypeColor(typeStr: string, colorStr: string): number[] {
