@@ -30,11 +30,12 @@ await removeIfExists(RESOURCEPACK_FOLDER_PATH);
 console.log('Generating datapack folder and resourcepack folder...');
 
 await generateFolders();
-// await copy('./static/textures', `${RESOURCEPACK_FOLDER_PATH}/assets/minecraft/textures`);
-// await copy('./static/lang', `${RESOURCEPACK_FOLDER_PATH}/assets/minecraft/lang`);
-// await copy('./static/pack.png', `${DATAPACK_FOLDER_PATH}/pack.png`);
-// await copy('./static/pack.png', `${RESOURCEPACK_FOLDER_PATH}/pack.png`);
-// //await initTextures();
+await copy('./static/items', `${RESOURCEPACK_FOLDER_PATH}/assets/minecraft/items`);
+await copy('./static/lang', `${RESOURCEPACK_FOLDER_PATH}/assets/minecraft/lang`);
+await copy('./static/models', `${RESOURCEPACK_FOLDER_PATH}/assets/minecraft/models`);
+await copy('./static/textures', `${RESOURCEPACK_FOLDER_PATH}/assets/minecraft/textures`);
+await copy('./static/pack.png', `${DATAPACK_FOLDER_PATH}/pack.png`);
+await copy('./static/pack.png', `${RESOURCEPACK_FOLDER_PATH}/pack.png`);
 await generatesFiles();
 await generatesFunctionFiles();
 
