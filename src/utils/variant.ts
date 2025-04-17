@@ -33,24 +33,6 @@ export const colors: string[] = [
     'white',
     'yellow',
 ];
-export const colorsMapping: Record<string, number> = {
-    black: 15,
-    blue: 11,
-    brown: 12,
-    cyan: 9,
-    gray: 7,
-    green: 13,
-    light_blue: 3,
-    light_gray: 8,
-    lime: 5,
-    magenta: 2,
-    orange: 1,
-    pink: 6,
-    purple: 10,
-    red: 14,
-    white: 0,
-    yellow: 4,
-};
 
 export function calculateModelData(typeIndex: number, bodyColorIndex: number, patternColorIndex: number): JSON {
     const size:number = typesMapping[types[typeIndex]][0];
@@ -73,23 +55,4 @@ export function calculateModelData(typeIndex: number, bodyColorIndex: number, pa
     }
 
     return JSON.parse(JSON.stringify(CMD));
-}
-
-export function getVariantsWithTypeColor(typeStr: string, colorStr: string): number[] {
-    const variantList: number[] = [];
-
-    if (!Object.keys(typesMapping).includes(typeStr)) return [];
-    if (!Object.keys(colorsMapping).includes(colorStr)) return [];
-
-    const type = typesMapping[typeStr];
-
-    const size = type[0];
-    const pattern = type[1];
-    const colorBody = colorsMapping[colorStr];
-
-    for (let colorPattern = 0; colorPattern <= 15; colorPattern++) {
-        variantList.push((colorPattern << 24) | (colorBody << 16) | (pattern << 8) | size);
-    }
-
-    return variantList;
 }

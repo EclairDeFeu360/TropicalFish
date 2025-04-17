@@ -1,12 +1,11 @@
 import { config } from '../config.ts';
 import { getAdvancementsPath, getAdvancementsPathBodyColor, getAdvancementsPathType, getDatapackName, writeFile } from '../utils/pack.ts';
-import { calculateModelData, colors, colorsMapping, getVariantsWithTypeColor, types } from '../utils/variant.ts';
+import { calculateModelData, colors, types } from '../utils/variant.ts';
 import { getActiveFileContent, getBodyFileContent, getGlobaleFileContent, getGlobalTypeFileContent, getMainFileContent, getPatternFileContent } from './advancementFactory.ts';
 import { Criteria, Variant } from './IJson.ts';
 
 export default async function generatesFiles() {
     const promises: Promise<void>[] = [];
-    const colorsMappingFlip = Object.fromEntries(Object.entries(colorsMapping).map(([k, v]) => [v, k]));
     const allTypeVariants: {
         [type: string]: { key: string; value: Variant }[];
     } = {};
@@ -21,7 +20,7 @@ export default async function generatesFiles() {
 
         colors.forEach((bodyColor, bodyColorIndex) => {
             const path = `${getAdvancementsPathType(type)}/body_${bodyColor}.json`;
-            const variantsColor = getVariantsWithTypeColor(type, bodyColor).map((colorVariant) => {
+            const variantsColor = colors.map((colorVariant) => {
                 return {
                     color: colorVariant,
                     key: `variant_${colorVariant}`,
@@ -36,7 +35,7 @@ export default async function generatesFiles() {
 
             let patternColorIndex = 0;
             for (const variant of variantsColor) {
-                const patternColor = colorsMappingFlip[patternColorIndex];
+                const patternColor = colors[patternColorIndex];
                 const criteriaKey = variant.key;
                 const criteriaValue = content.criteria[criteriaKey];
 

@@ -1,6 +1,8 @@
 import { getDatapackName, getGlobalRewardFileName, getTypeRewardFileName } from '../utils/pack.ts';
 import { Criteria, Display } from './IJson.ts';
 
+const backgroundTexture = 'minecraft:block/tube_coral_block';
+
 class AdvancementFactory {
     private json: Record<string, any> = {
         author: {
@@ -59,7 +61,7 @@ export function getGlobaleFileContent() {
             description: {
                 translate: 'advancement.catch.fish.description',
             },
-            background: 'minecraft:textures/block/tube_coral_block.png',
+            background: backgroundTexture,
             frame: 'challenge',
             show_toast: true,
             announce_to_chat: true,
@@ -95,7 +97,7 @@ export function getGlobalTypeFileContent(params: { modelData: JSON; parent: stri
                     },
                 ],
             },
-            background: 'minecraft:textures/block/tube_coral_block.png',
+            background: backgroundTexture,
             frame: 'goal',
             show_toast: false,
             announce_to_chat: false,
@@ -132,7 +134,7 @@ export function getMainFileContent(params: { modelData: JSON; type: string }) {
                     },
                 ],
             },
-            background: 'minecraft:textures/block/tube_coral_block.png',
+            background: backgroundTexture,
             frame: 'challenge',
             show_toast: true,
             announce_to_chat: true,
@@ -141,7 +143,7 @@ export function getMainFileContent(params: { modelData: JSON; type: string }) {
         .get();
 }
 
-export function getBodyFileContent(params: { bodyColor: string; modelData: JSON; type: string; variantsColor: { color: number; key: string }[] }) {
+export function getBodyFileContent(params: { bodyColor: string; modelData: JSON; type: string; variantsColor: { color: string; key: string }[] }) {
     const variants = params.variantsColor.map((variantColor) => {
         return {
             [`variant_${variantColor.color}`]: {
@@ -150,8 +152,10 @@ export function getBodyFileContent(params: { bodyColor: string; modelData: JSON;
                     items: [
                         {
                             items: 'minecraft:tropical_fish_bucket',
-                            predicates: {
-                                'minecraft:custom_data': `{BucketVariantTag: ${variantColor.color}}`,
+                            components: {
+                                'minecraft:tropical_fish/pattern' : params.type,
+                                'minecraft:tropical_fish/base_color' : params.bodyColor,
+                                'minecraft:tropical_fish/pattern_color' : variantColor.color,
                             },
                         },
                     ],
@@ -194,7 +198,7 @@ export function getBodyFileContent(params: { bodyColor: string; modelData: JSON;
                     },
                 ],
             },
-            background: 'minecraft:textures/block/tube_coral_block.png',
+            background: backgroundTexture,
             frame: 'goal',
             show_toast: true,
             announce_to_chat: false,
@@ -242,7 +246,7 @@ export function getPatternFileContent(params: { bodyColor: string; modelData: JS
                     },
                 ],
             },
-            background: 'minecraft:textures/block/tube_coral_block.png',
+            background: backgroundTexture,
             frame: 'task',
             show_toast: true,
             announce_to_chat: false,
