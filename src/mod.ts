@@ -17,7 +17,7 @@ async function removeIfExists(path: string) {
 }
 
 async function generateZIP(path: string, output: string) {
-    await zip.compress(path, `${config.i18nName.replace(/ /g, '')}-${output}.zip`, { overwrite: true, flags: [] });
+    await zip.compress(path, `${config.i18nName.replace(/ /g, '')}-${output}.zip`, { overwrite: true, flags: [], excludeSrc: true });
 }
 
 await removeIfExists(DATAPACK_FOLDER_PATH);
