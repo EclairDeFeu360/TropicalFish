@@ -10,8 +10,6 @@ export default async function generatesFiles() {
         [type: string]: { key: string; value: Variant }[];
     } = {};
 
-    promises.push(createDetectFile());
-
     types.forEach((type, typeIndex) => {
         const typeVariants: {
             key: string;
@@ -160,24 +158,4 @@ async function createGlobalFiles(allTypesVariants: { [type: string]: { key: stri
     );
     promises.push(writeFile(path, content));
     await Promise.all(promises);
-}
-
-async function createDetectFile() {
-    await writeFile(`${getAdvancementsPath()}/detect.json`, {
-        criteria: {
-            requirement: {
-                trigger: 'minecraft:inventory_changed',
-                conditions: {
-                    items: [
-                        {
-                            items: 'minecraft:tropical_fish_bucket',
-                        },
-                    ],
-                },
-            },
-        },
-        rewards: {
-            function: `${getDatapackName()}:convert`,
-        },
-    });
 }
