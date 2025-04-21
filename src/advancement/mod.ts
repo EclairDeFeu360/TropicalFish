@@ -35,6 +35,7 @@ export default async function generatesFiles() {
             for (const variant of variantsColor) {
                 const patternColor = colors[patternColorIndex];
                 const criteriaKey = variant.key;
+                const keyWithBodyColor = `${variant.key}_${bodyColor}`;
                 const criteriaValue = content.criteria[criteriaKey];
 
                 promises.push(
@@ -50,7 +51,7 @@ export default async function generatesFiles() {
                 );
 
                 patternColorIndex++;
-                typeVariants.push({ key: criteriaKey, value: criteriaValue });
+                typeVariants.push({ key: keyWithBodyColor, value: criteriaValue });
             }
 
             promises.push(createActiveFile(type, bodyColor));
@@ -141,7 +142,8 @@ async function createGlobalFiles(allTypesVariants: { [type: string]: { key: stri
         });
 
         for (const variant of allTypesVariants[type]) {
-            content.criteria[variant.key] = variant.value;
+            const keyWithType = `${variant.key}_${type}`;
+            content.criteria[keyWithType] = variant.value;
             typeContent.criteria[variant.key] = variant.value;
         }
 
