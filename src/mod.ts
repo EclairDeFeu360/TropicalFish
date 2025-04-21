@@ -1,5 +1,5 @@
 import { copy } from 'std/fs/mod.ts';
-import { compress } from 'zip/mod.ts';
+import { zip } from "jsr:@deno-library/compress";
 
 import generatesFiles from './advancement/mod.ts';
 import { config } from './config.ts';
@@ -17,11 +17,7 @@ async function removeIfExists(path: string) {
 }
 
 async function generateZIP(path: string, output: string) {
-    const fileNames: string[] = [];
-    for await (const dirEntry of Deno.readDir(path)) {
-        fileNames.push(path + '/' + dirEntry.name);
-    }
-    await compress(fileNames, `${config.i18nName.replace(/ /g, '')}-${output}.zip`, { overwrite: true, flags: [] });
+    await zip.compress(path, `${config.i18nName.replace(/ /g, '')}-${output}.zip`, { overwrite: true, flags: [] });
 }
 
 await removeIfExists(DATAPACK_FOLDER_PATH);
