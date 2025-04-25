@@ -57,6 +57,17 @@ jobs:
             ${{ steps.read_file.outputs.contents }}
           files: TropicalFish-resource.zip
 
+      - name: Upload resource to CurseForge
+        uses: itsmeow/curseforge-upload@v3
+        with:
+          file_path: TropicalFish-resource.zip
+          game_endpoint: "minecraft"
+          relations: "all-tropical-fish-datapack:requiredDependency"
+          game_versions: "Minecraft ${{ steps.read_file.outputs.contents }}"
+          project_id: "628578"
+          token: "${{ CURSEFORGE_SECRET }}"
+          changelog: ${{ github.event.release.body }}
+
       - name: Upload data to Modrinth
         uses: cloudnode-pro/modrinth-publish@v2
         with:
@@ -70,3 +81,14 @@ jobs:
           game-versions: |-
             ${{ steps.read_file.outputs.contents }}
           files: TropicalFish-data.zip
+
+      - name: Upload data to CurseForge
+        uses: itsmeow/curseforge-upload@v3
+        with:
+          file_path: TropicalFish-data.zip
+          game_endpoint: "minecraft"
+          relations: "all-tropical-fish-ressourcepack:requiredDependency"
+          game_versions: "Minecraft ${{ steps.read_file.outputs.contents }}"
+          project_id: "628579"
+          token: "${{ CURSEFORGE_SECRET }}"
+          changelog: ${{ github.event.release.body }}
