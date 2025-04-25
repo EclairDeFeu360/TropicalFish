@@ -29,12 +29,12 @@ jobs:
       - name: Retrieve Tag Message
         run: |
           TAG_MESSAGE=$(git tag -l --sort=-taggerdate --format='%(contents)' $(git describe --tags $(git branch --show-current)))
-          echo "Tag Message: $TAG_MESSAGE"
+          echo "::set-output name=tag_message::$TAG_MESSAGE"
 
       - name: Create GitHub Release
         uses: ncipollo/release-action@v1
         with:
-          body: "# ${{TAG_MESSAGE}}<br>Full Changelog: https://github.com/EclairDeFeu360/TropicalFish/commits/${{github.ref_name}}"
+          body: "# ${{ steps.get-tag.outputs.tag_message }}<br>Full Changelog: https://github.com/EclairDeFeu360/TropicalFish/commits/${{github.ref_name}}"
           artifacts: "TropicalFish-data.zip,TropicalFish-resource.zip"
 
       - name: Read Minecraft version from file
@@ -65,7 +65,7 @@ jobs:
           relations: "all-tropical-fish-datapack:requiredDependency"
           game_versions: "Minecraft ${{ steps.read_file.outputs.contents }}"
           project_id: "628578"
-          token: "${{ CURSEFORGE_SECRET }}"
+          token: "${{ secrets.CURSEFORGE_SECRET }}"
           changelog: ${{ github.event.release.body }}
 
       - name: Upload data to Modrinth
@@ -90,5 +90,5 @@ jobs:
           relations: "all-tropical-fish-ressourcepack:requiredDependency"
           game_versions: "Minecraft ${{ steps.read_file.outputs.contents }}"
           project_id: "628579"
-          token: "${{ CURSEFORGE_SECRET }}"
+          token: "${{ secrets.CURSEFORGE_SECRET }}"
           changelog: ${{ github.event.release.body }}
