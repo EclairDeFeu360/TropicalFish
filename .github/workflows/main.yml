@@ -1,94 +1,94 @@
 name: Run and Release
 
 on:
-  push:
-    tags:
-      - 'v*'
+    push:
+        tags:
+            - "V*"
 
 jobs:
-  build:
-    runs-on: ubuntu-latest
-    permissions:
-      contents: write
+    build:
+        runs-on: ubuntu-latest
+        permissions:
+            contents: write
 
-    steps:
-      - name: Checkout Repository
-        uses: actions/checkout@v4
+        steps:
+            - name: Checkout Repository
+              uses: actions/checkout@v4
 
-      - name: Set up Deno
-        uses: denoland/setup-deno@v2
-        with:
-          deno-version: stable
+            - name: Set up Deno
+              uses: denoland/setup-deno@v2
+              with:
+                  deno-version: stable
 
-      - name: Run
-        run: |
-          deno task start
+            - name: Run
+              run: |
+                  deno task start
 
-      - name: Fetch Tags
-        run: git fetch --tags --force
-      - name: Retrieve Tag Message
-        run: |
-          TAG_MESSAGE=$(git tag -l --sort=-taggerdate --format='%(contents)' $(git describe --tags $(git branch --show-current)))
-          echo "::set-output name=tag_message::$TAG_MESSAGE"
+            - name: Fetch Tags
+              run: git fetch --tags --force
+            - name: Retrieve Tag Message
+              run: |
+                  TAG_MESSAGE=$(git tag -l --sort=-taggerdate --format='%(contents)' $(git describe --tags $(git branch --show-current)))
+                  echo "::set-output name=tag_message::$TAG_MESSAGE"
 
-      - name: Create GitHub Release
-        uses: ncipollo/release-action@v1
-        with:
-          body: "# ${{ steps.get-tag.outputs.tag_message }}<br>Full Changelog: https://github.com/EclairDeFeu360/TropicalFish/commits/${{github.ref_name}}"
-          artifacts: "TropicalFish-data.zip,TropicalFish-resource.zip"
+            - name: Create GitHub Release
+              uses: ncipollo/release-action@v1
+              with:
+                  body: "# ${{ steps.get-tag.outputs.tag_message }}<br>Full Changelog: https://github.com/EclairDeFeu360/TropicalFish/commits/${{github.ref_name}}"
+                  artifacts: "TropicalFish-data.zip,TropicalFish-resource.zip"
 
-      - name: Read Minecraft version from file
-        uses: guibranco/github-file-reader-action-v2@latest
-        id: read_file
-        with:
-          path: "minecraft-version.txt"
+            - name: Read Minecraft version from file
+              uses: guibranco/github-file-reader-action-v2@latest
+              id: read_file
+              with:
+                  path: "minecraft-version.txt"
 
-      - name: Upload resource to Modrinth
-        uses: cloudnode-pro/modrinth-publish@v2
-        with:
-          token: ${{ secrets.MODRINTH_TOKEN }}
-          project: hZCDDXjL
-          name: ${{ github.event.release.name }}
-          version: ${{ github.event.release.tag_name }}
-          changelog: ${{ github.event.release.body }}
-          loaders: |-
-            minecraft
-          game-versions: |-
-            ${{ steps.read_file.outputs.contents }}
-          files: TropicalFish-resource.zip
+            - name: Upload resource to Modrinth
+              uses: cloudnode-pro/modrinth-publish@v2
+              with:
+                  token: ${{ secrets.MODRINTH_TOKEN }}
+                  project: hZCDDXjL
+                  name: ${{ github.event.release.name }}
+                  version: ${{ github.event.release.tag_name }}
+                  changelog: ${{ github.event.release.body }}
+                  loaders: |-
+                      minecraft
+                  game-versions: |-
+                      ${{ steps.read_file.outputs.contents }}
+                  files: TropicalFish-resource.zip
 
-      - name: Upload resource to CurseForge
-        uses: itsmeow/curseforge-upload@v3
-        with:
-          file_path: TropicalFish-resource.zip
-          game_endpoint: "minecraft"
-          relations: "all-tropical-fish-datapack:requiredDependency"
-          game_versions: "Minecraft ${{ steps.read_file.outputs.contents }}"
-          project_id: "628578"
-          token: "${{ secrets.CURSEFORGE_SECRET }}"
-          changelog: ${{ github.event.release.body }}
+            - name: Upload resource to CurseForge
+              uses: itsmeow/curseforge-upload@v3
+              with:
+                  file_path: TropicalFish-resource.zip
+                  game_endpoint: "minecraft"
+                  relations: "all-tropical-fish-datapack:requiredDependency"
+                  game_versions: "Minecraft ${{ steps.read_file.outputs.contents }}"
+                  project_id: "628578"
+                  token: "${{ secrets.CURSEFORGE_SECRET }}"
+                  changelog: ${{ github.event.release.body }}
 
-      - name: Upload data to Modrinth
-        uses: cloudnode-pro/modrinth-publish@v2
-        with:
-          token: ${{ secrets.MODRINTH_TOKEN }}
-          project: vBrzjbyB
-          name: ${{ github.event.release.name }}
-          version: ${{ github.event.release.tag_name }}
-          changelog: ${{ github.event.release.body }}
-          loaders: |-
-            datapack
-          game-versions: |-
-            ${{ steps.read_file.outputs.contents }}
-          files: TropicalFish-data.zip
+            - name: Upload data to Modrinth
+              uses: cloudnode-pro/modrinth-publish@v2
+              with:
+                  token: ${{ secrets.MODRINTH_TOKEN }}
+                  project: vBrzjbyB
+                  name: ${{ github.event.release.name }}
+                  version: ${{ github.event.release.tag_name }}
+                  changelog: ${{ github.event.release.body }}
+                  loaders: |-
+                      datapack
+                  game-versions: |-
+                      ${{ steps.read_file.outputs.contents }}
+                  files: TropicalFish-data.zip
 
-      - name: Upload data to CurseForge
-        uses: itsmeow/curseforge-upload@v3
-        with:
-          file_path: TropicalFish-data.zip
-          game_endpoint: "minecraft"
-          relations: "all-tropical-fish-ressourcepack:requiredDependency"
-          game_versions: "Minecraft ${{ steps.read_file.outputs.contents }}"
-          project_id: "628579"
-          token: "${{ secrets.CURSEFORGE_SECRET }}"
-          changelog: ${{ github.event.release.body }}
+            - name: Upload data to CurseForge
+              uses: itsmeow/curseforge-upload@v3
+              with:
+                  file_path: TropicalFish-data.zip
+                  game_endpoint: "minecraft"
+                  relations: "all-tropical-fish-ressourcepack:requiredDependency"
+                  game_versions: "Minecraft ${{ steps.read_file.outputs.contents }}"
+                  project_id: "628579"
+                  token: "${{ secrets.CURSEFORGE_SECRET }}"
+                  changelog: ${{ github.event.release.body }}
