@@ -1,8 +1,8 @@
 export const config: IConfig = {
     globalRewardCommands: ["xp add @s 3072 levels"],
     typeRewardCommands: ["xp add @s 3072 points"],
-    datapackFormat: 82,
-    resourcepackFormat: 65,
+    datapackFormat: 121.0,
+    resourcepackFormat: 97.1,
     defaultPrimaryColorIndex: 10, // Index in the colorsMapping object, not the minecraft color value
     defaultSecondaryColorIndex: 14, // Index in the colorsMapping object, not the minecraft color value
     techName: "tropicalfish",
