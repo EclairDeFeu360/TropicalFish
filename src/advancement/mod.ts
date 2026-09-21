@@ -2,7 +2,7 @@ import { config } from '../config.ts';
 import { getAdvancementsPath, getAdvancementsPathBodyColor, getAdvancementsPathType, getDatapackName, writeFile } from '../utils/pack.ts';
 import { calculateModelData, colors, types } from '../utils/variant.ts';
 import { getActiveFileContent, getBodyFileContent, getGlobaleFileContent, getGlobalTypeFileContent, getMainFileContent, getPatternFileContent } from './advancementFactory.ts';
-import { Criteria, Variant } from './IJson.ts';
+import type { Criteria, Variant } from './IJson.ts';
 
 export default async function generatesFiles() {
     const promises: Promise<void>[] = [];

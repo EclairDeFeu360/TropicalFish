@@ -1,3 +1,5 @@
+import type { ModelData } from '../utils/variant.ts';
+
 export interface TranslateKey {
     translate: string;
     with?: TranslateKey[];
@@ -26,7 +28,7 @@ export interface Display {
 
 export interface Icon {
     id: string;
-    components?: { 'minecraft:custom_model_data': JSON };
+    components?: { 'minecraft:custom_model_data': ModelData };
 }
 
 export interface Variant {

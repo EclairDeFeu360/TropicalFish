@@ -15,14 +15,23 @@ jobs:
             - name: Checkout Repository
               uses: actions/checkout@v4
 
-            - name: Set up Deno
-              uses: denoland/setup-deno@v2
+            - name: Set up pnpm
+              uses: pnpm/action-setup@v4
+
+            - name: Set up Node.js
+              uses: actions/setup-node@v4
               with:
-                  deno-version: stable
+                  node-version-file: .nvmrc
+                  cache: pnpm
+
+            - name: Install dependencies
+              run: pnpm install --frozen-lockfile
+
+            - name: Check types
+              run: pnpm check
 
             - name: Run
-              run: |
-                  deno task start
+              run: pnpm start
 
             - name: Fetch Tags
               run: git fetch --tags --force

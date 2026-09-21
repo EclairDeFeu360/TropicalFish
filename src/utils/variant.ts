@@ -34,7 +34,11 @@ export const colors: string[] = [
     'yellow',
 ];
 
-export function calculateModelData(typeIndex: number, bodyColorIndex: number, patternColorIndex: number): JSON {
+export interface ModelData {
+    strings: string[];
+}
+
+export function calculateModelData(typeIndex: number, bodyColorIndex: number, patternColorIndex: number): ModelData {
     const size:number = typesMapping[types[typeIndex]][0];
     let sizeLiteral:string;
     if (size == 0)  sizeLiteral = "small";

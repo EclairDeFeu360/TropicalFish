@@ -1,8 +1,7 @@
-import { ensureDir } from 'std/fs/ensure_dir.ts';
-
 import { config } from '../config.ts';
-import { RESOURCEPACK_FOLDER_PATH, writeFile } from '../utils/pack.ts';
+import { ensureDir, RESOURCEPACK_FOLDER_PATH, writeFile } from '../utils/pack.ts';
 import { calculateModelData, colors, types } from '../utils/variant.ts';
+import type { ModelData } from '../utils/variant.ts';
 
 export interface LinkItemsFile {
     parent: string;
@@ -20,7 +19,7 @@ export interface OverridesEntity {
 }
 
 export interface Predicate {
-    custom_model_data: number;
+    custom_model_data: ModelData;
 }
 
 async function createModelsFiles() {
@@ -62,7 +61,7 @@ async function createLinkTexturesModelsFile() {
     types.forEach((type, typeIndex) => {
         colors.forEach((bodyColor, bodyColorIndex) => {
             colors.forEach((patternColor, patternColorIndex) => {
-                const modelData: JSON = calculateModelData(typeIndex, bodyColorIndex, patternColorIndex);
+                const modelData = calculateModelData(typeIndex, bodyColorIndex, patternColorIndex);
                 const model = `${config.techName}/${type}/${bodyColor}/${patternColor}`;
 
                 content.overrides.push({

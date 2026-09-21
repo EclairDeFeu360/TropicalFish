@@ -21,15 +21,19 @@ Datapack and resourcepack can be downloaded
 
 ## Generation
 
-Install [Deno](https://deno.land/manual/getting_started/installation) if you don't have it yet\
-Otherwise check that you are up to date with
+Install [Node.js](https://nodejs.org/) 22.18 or newer (Node.js 24 is pinned in `.nvmrc`)
+and [pnpm](https://pnpm.io/installation) 10.30.2, then install dependencies from the project root:
 
 ```console
-deno upgrade
+pnpm install
 ```
 
 Then run the application to generate the datapack and the resourcepack
 
 ```console
-deno task start
+pnpm start
 ```
+
+This creates `datapack/`, `resourcepack/`, `TropicalFish-data.zip`, and `TropicalFish-resource.zip`.
+Run `pnpm check` to type-check both generators, or `pnpm bucket-start` to generate bucket textures
+in `bucket-project/dist/` (see the [source texture requirements](bucket-project/README.md)).

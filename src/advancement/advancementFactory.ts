@@ -1,5 +1,6 @@
 import { getDatapackName, getGlobalRewardFileName, getTypeRewardFileName } from '../utils/pack.ts';
-import { Criteria, Display } from './IJson.ts';
+import type { Criteria, Display } from './IJson.ts';
+import type { ModelData } from '../utils/variant.ts';
 
 const backgroundTexture = 'minecraft:block/tube_coral_block';
 
@@ -71,7 +72,7 @@ export function getGlobaleFileContent() {
         .get();
 }
 
-export function getGlobalTypeFileContent(params: { modelData: JSON; parent: string; type: string }) {
+export function getGlobalTypeFileContent(params: { modelData: ModelData; parent: string; type: string }) {
     return new AdvancementFactory()
         .criteria({})
         .display({
@@ -108,7 +109,7 @@ export function getGlobalTypeFileContent(params: { modelData: JSON; parent: stri
         .get();
 }
 
-export function getMainFileContent(params: { modelData: JSON; type: string }) {
+export function getMainFileContent(params: { modelData: ModelData; type: string }) {
     return new AdvancementFactory()
         .criteria({})
         .display({
@@ -143,7 +144,7 @@ export function getMainFileContent(params: { modelData: JSON; type: string }) {
         .get();
 }
 
-export function getBodyFileContent(params: { bodyColor: string; modelData: JSON; type: string; variantsColor: { color: string; key: string }[] }) {
+export function getBodyFileContent(params: { bodyColor: string; modelData: ModelData; type: string; variantsColor: { color: string; key: string }[] }) {
     const variants = params.variantsColor.map((variantColor) => {
         return {
             [`variant_${variantColor.color}`]: {
@@ -208,7 +209,7 @@ export function getBodyFileContent(params: { bodyColor: string; modelData: JSON;
         .get();
 }
 
-export function getPatternFileContent(params: { bodyColor: string; modelData: JSON; parent: string; patternColor: string; type: string }) {
+export function getPatternFileContent(params: { bodyColor: string; modelData: ModelData; parent: string; patternColor: string; type: string }) {
     return new AdvancementFactory()
         .criteria({})
         .display({

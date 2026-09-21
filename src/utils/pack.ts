@@ -1,10 +1,14 @@
-import { ensureDir } from 'std/fs/mod.ts';
+import { mkdir, writeFile as writeTextFile } from 'node:fs/promises';
 
 import { config } from '../config.ts';
 import { colors, types } from './variant.ts';
 
 export const DATAPACK_FOLDER_PATH = 'datapack';
 export const RESOURCEPACK_FOLDER_PATH = 'resourcepack';
+
+export async function ensureDir(path: string): Promise<void> {
+    await mkdir(path, { recursive: true });
+}
 
 export async function generateFolders() {
     const promises: Promise<void>[] = [];
@@ -30,7 +34,7 @@ export async function writeFile(path: string, content: object) {
 }
 
 export async function writeStringFile(path: string, content: string) {
-    await Deno.writeTextFile(path, content);
+    await writeTextFile(path, content, 'utf8');
 }
 
 export function getDatapackName(): string {
